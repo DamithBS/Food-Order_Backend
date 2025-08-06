@@ -2,6 +2,10 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
+import dotenv from 'dotenv';
+
+
+dotenv.config(); // load environment variables from .env file
 
 
 import userRouter from "./routes/userRouter.js";
@@ -15,10 +19,9 @@ app.use((req, res, next) => {   // middleware function to verify token
     let token = req.headers("Authorization");
     if(token!=null){
         token = token.replace("Bearer ", "");
-        jwt.verify(token, "fo-1234", (err, decoded) => {
+        jwt.verify(token, process.env.JWT_Secret, (err, decoded) => {
             if(!err){
-                req.user = decoded;
-             
+                req.user = decoded;        
             }
             else{
                 res.status(401).json({
@@ -30,7 +33,8 @@ app.use((req, res, next) => {   // middleware function to verify token
     next();
 })
 
-let mongoUrl= "mongodb+srv://admin:1234@cluster0.0v4vf4o.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+let mongoUrl= process.env.MONGO_URL; // get the MongoDB connection string
 
 mongoose.connect(mongoUrl) // connect to MongoDB
 let connection = mongoose.connection;  // get the connection object
