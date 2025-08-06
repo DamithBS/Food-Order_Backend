@@ -9,6 +9,7 @@ dotenv.config(); // load environment variables from .env file
 
 
 import userRouter from "./routes/userRouter.js";
+import reviewRouter from "./routes/reviewRouter.js";
 
 
 const app = express(); // create an Express app
@@ -16,7 +17,7 @@ const app = express(); // create an Express app
 app.use(bodyParser.json()); // parse JSON request bodies
 
 app.use((req, res, next) => {   // middleware function to verify token 
-    let token = req.headers("Authorization");
+    let token = req.headers["authorization"]; 
     if(token!=null){
         token = token.replace("Bearer ", "");
         jwt.verify(token, process.env.JWT_Secret, (err, decoded) => {
@@ -43,9 +44,12 @@ connection.once("open", () => {
 })
 
 
-
+// routes 
 app.use("/api/users",userRouter)
- 
+app.use("/api/reviews",reviewRouter)
+
+
+// start the server 
 app.listen(5000, () => {
     console.log("Server is running on port 5000");
 });
