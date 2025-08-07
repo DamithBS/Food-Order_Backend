@@ -10,6 +10,7 @@ dotenv.config(); // load environment variables from .env file
 
 import userRouter from "./routes/userRouter.js";
 import reviewRouter from "./routes/reviewRouter.js";
+import productRouter from "./routes/productRouter.js";
 
 
 const app = express(); // create an Express app
@@ -47,6 +48,7 @@ connection.once("open", () => {
 // routes 
 app.use("/api/users",userRouter)
 app.use("/api/reviews",reviewRouter)
+app.use("/api/products",productRouter)
 
 
 // start the server 
