@@ -3,17 +3,19 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import jwt from "jsonwebtoken";
 import dotenv from 'dotenv';
-
-
-dotenv.config(); // load environment variables from .env file
-
+import cors from "cors";
 
 import userRouter from "./routes/userRouter.js";
 import reviewRouter from "./routes/reviewRouter.js";
 import productRouter from "./routes/productRouter.js";
 
+dotenv.config(); // load environment variables from .env file
+
+
 
 const app = express(); // create an Express app
+
+app.use(cors());// enable CORS for all routes 
 
 app.use(bodyParser.json()); // parse JSON request bodies
 

@@ -51,7 +51,8 @@ export function loginUser(req,res){
                         },process.env.JWT_Secret)
                         res.json({
                             message : "User logged in successfully",
-                            token : token
+                            token : token,
+                            user : user
                         })
                     } 
                     else{

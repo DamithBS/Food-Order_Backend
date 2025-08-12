@@ -9,5 +9,4 @@ productRouter.put("/:key",updateProduct);
 productRouter.delete("/:key",deleteProduct);
 
 
-
 export default productRouter;
